@@ -1,16 +1,15 @@
-import { Link } from "@tanstack/react-router";
 import logo from "@/assets/thexbyte-logo.png";
 
 export function Header() {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/60 bg-background/70 backdrop-blur-md">
       <div className="container-tight flex h-14 items-center justify-between">
-        <Link to="/" className="flex items-center gap-2">
+        <a href="#top" className="flex items-center gap-2">
           <img src={logo} alt="TheXbyte" className="h-7 w-7 object-contain" />
           <span className="text-sm font-semibold tracking-tight">
             The<span className="text-signal">X</span>byte
           </span>
-        </Link>
+        </a>
 
         <nav className="hidden items-center gap-7 text-sm text-muted-foreground md:flex">
           <a href="#what-we-build" className="transition-colors hover:text-foreground">What we build</a>
