@@ -2,10 +2,9 @@ import { useState } from "react";
 import { Mail, MessageCircle, MapPin, Phone, Loader2, CheckCircle2, AlertCircle } from "lucide-react";
 import { SectionHeader } from "./WhatWeBuild";
 
-// FormSubmit endpoint — delivers form submissions to this address.
-// Configure Cloudflare Email Routing on thexbyte.tn so hello@thexbyte.com
-// (or hello@thexbyte.tn) forwards to your real inbox.
-const FORM_ENDPOINT = "https://formsubmit.co/ajax/hello@thexbyte.com";
+// Cloudflare Worker endpoint — receives form JSON and sends email via Resend.
+// The API key lives securely in Worker secrets, nothing sensitive here.
+const WORKER_URL = "https://api.thexbyte.tn/contact";
 
 type Status = "idle" | "submitting" | "success" | "error";
 
@@ -30,23 +29,20 @@ export function Contact() {
       email: data.get("email"),
       company: data.get("company"),
       message: data.get("message"),
-      _subject: `New lead from ${data.get("name") || "website"}`,
-      _template: "table",
-      _captcha: "false",
     };
 
     setStatus("submitting");
     setErrorMsg("");
 
     try {
-      const res = await fetch(FORM_ENDPOINT, {
+      const res = await fetch(WORKER_URL, {
         method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
       if (!res.ok) throw new Error(`Request failed (${res.status})`);
-      const json = (await res.json()) as { success?: string | boolean };
-      if (String(json.success) !== "true") {
+      const json = (await res.json()) as { success?: boolean };
+      if (!json.success) {
         throw new Error("Submission was not accepted.");
       }
       setStatus("success");
@@ -68,7 +64,7 @@ export function Contact() {
         />
 
         <div className="mt-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          <ContactCard icon={Mail} label="Email" value="hello@thexbyte.com" href="mailto:hello@thexbyte.com" />
+          <ContactCard icon={Mail} label="Email" value="hello@thexbyte.tn" href="mailto:hello@thexbyte.tn" />
           <ContactCard icon={Phone} label="Phone" value="+216 21 238 537" href="tel:+21621238537" />
           <ContactCard icon={MessageCircle} label="WhatsApp" value="+216 21 238 537" href="https://wa.me/21621238537" />
           <ContactCard icon={MapPin} label="Location" value="Ariana Centre, Tunisia" />
@@ -82,12 +78,12 @@ export function Contact() {
             <h3 className="mt-3 text-lg font-semibold tracking-tight">Prefer email?</h3>
             <p className="mt-2 text-sm text-muted-foreground">
               Write to{" "}
-              <a href="mailto:hello@thexbyte.com" className="text-foreground underline-offset-4 hover:underline">
-                hello@thexbyte.com
+              <a href="mailto:hello@thexbyte.tn" className="text-foreground underline-offset-4 hover:underline">
+                hello@thexbyte.tn
               </a>{" "}
               or{" "}
-              <a href="mailto:support@thexbyte.com" className="text-foreground underline-offset-4 hover:underline">
-                support@thexbyte.com
+              <a href="mailto:support@thexbyte.tn" className="text-foreground underline-offset-4 hover:underline">
+                support@thexbyte.tn
               </a>
               . We typically reply within one business day.
             </p>
@@ -175,8 +171,8 @@ export function Contact() {
                   <div className="font-medium text-destructive">Couldn't send your message.</div>
                   <div className="text-muted-foreground">
                     {errorMsg} You can email us directly at{" "}
-                    <a href="mailto:hello@thexbyte.com" className="underline underline-offset-4">
-                      hello@thexbyte.com
+                    <a href="mailto:hello@thexbyte.tn" className="underline underline-offset-4">
+                      hello@thexbyte.tn
                     </a>
                     .
                   </div>
