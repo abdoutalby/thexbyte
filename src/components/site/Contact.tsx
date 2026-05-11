@@ -45,8 +45,8 @@ export function Contact() {
         body: JSON.stringify(payload),
       });
       if (!res.ok) throw new Error(`Request failed (${res.status})`);
-      const json = (await res.json()) as { success?: string };
-      if (json.success !== "true" && json.success !== true) {
+      const json = (await res.json()) as { success?: string | boolean };
+      if (String(json.success) !== "true") {
         throw new Error("Submission was not accepted.");
       }
       setStatus("success");
