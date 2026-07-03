@@ -1,4 +1,6 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
+import { CALENDLY_URL } from "@/content/site";
 
 export function Hero() {
   return (
@@ -18,7 +20,7 @@ export function Hero() {
           className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground"
         >
           <span className="inline-block h-1.5 w-1.5 rounded-full bg-signal shadow-[0_0_12px_var(--signal)]" />
-          Tunis · Engineering studio · est. 2024
+          Premium software partner · Europe & Tunisia
         </motion.div>
 
         <motion.h1
@@ -27,8 +29,8 @@ export function Hero() {
           transition={{ duration: 0.6, delay: 0.05, ease: "easeOut" }}
           className="mt-6 max-w-4xl text-balance text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl md:text-6xl lg:text-7xl"
         >
-          Engineering systems that{" "}
-          <span className="text-signal">interact with the real world.</span>
+          Custom Software, Mobile Apps &{" "}
+          <span className="text-signal">AI Solutions Built for Growth</span>
         </motion.h1>
 
         <motion.p
@@ -37,8 +39,8 @@ export function Hero() {
           transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
           className="mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg"
         >
-          TheXbyte builds operational software, IoT infrastructure, embedded systems and
-          automation platforms for startups, labs and industrial businesses.
+          TheXbyte helps startups and businesses design, build, and scale web applications,
+          mobile apps, AI solutions, IoT platforms, and cloud infrastructure.
         </motion.p>
 
         <motion.div
@@ -48,43 +50,19 @@ export function Hero() {
           className="mt-9 flex flex-wrap items-center gap-3"
         >
           <a
-            href="#projects"
+            href={CALENDLY_URL}
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-flex items-center gap-2 rounded-md bg-foreground px-4 py-2.5 text-sm font-medium text-background transition-transform hover:-translate-y-0.5"
           >
-            View Projects <span aria-hidden>→</span>
+            Book a Free Consultation <span aria-hidden>→</span>
           </a>
-          <a
-            href="#contact"
+          <Link
+            to="/portfolio"
             className="inline-flex items-center gap-2 rounded-md border border-border bg-surface px-4 py-2.5 text-sm font-medium text-foreground transition-colors hover:border-signal/60 hover:text-signal"
           >
-            Start a Project
-          </a>
-        </motion.div>
-
-        {/* Tech blueprint visual */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.25 }}
-          className="mt-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-4"
-        >
-          {[
-            { k: "uptime", v: "99.97%", d: "industrial telemetry, last 90d" },
-            { k: "latency", v: "< 80ms", d: "MQTT broker → dashboard" },
-            { k: "devices", v: "ESP32 · STM32", d: "in production fleets" },
-            { k: "stack", v: "Spring · Nest · Flutter", d: "across active platforms" },
-          ].map((s) => (
-            <div
-              key={s.k}
-              className="rounded-lg border border-border bg-surface/60 p-4"
-            >
-              <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
-                {s.k}
-              </div>
-              <div className="mt-2 text-lg font-semibold tracking-tight">{s.v}</div>
-              <div className="mt-1 text-xs text-muted-foreground">{s.d}</div>
-            </div>
-          ))}
+            View Our Work
+          </Link>
         </motion.div>
       </div>
     </section>

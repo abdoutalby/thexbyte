@@ -1,0 +1,306 @@
+import type { CaseStudyContent } from "../types";
+
+export const allCaseStudies: CaseStudyContent[] = [
+  {
+    slug: "remote-water-quality-monitoring",
+    tag: "Environmental · IoT",
+    title: "Remote Water Quality Monitoring",
+    metaTitle: "Case Study: Remote Water Quality Monitoring | TheXbyte",
+    metaDescription: "How TheXbyte built an IoT water quality monitoring system with ESP32, MQTT, and real-time alerts. Manual readings reduced from weekly to monthly.",
+    overview: [
+      "Environmental monitoring agencies needed continuous visibility into water quality across remote field stations measuring pH, turbidity, and dissolved oxygen levels.",
+      "TheXbyte designed and deployed a full-stack IoT solution connecting ESP32 sensor nodes to a cloud platform with real-time dashboards and automated alerting.",
+    ],
+    clientChallenge: [
+      "Field stations measuring pH, turbidity, and dissolved oxygen had no remote visibility and required weekly manual readings by field technicians.",
+      "Out-of-range events were discovered days or weeks after occurrence — too late for timely intervention in sensitive environmental ecosystems.",
+      "Manual data entry into spreadsheets introduced errors and made historical trend analysis impractical across dozens of monitoring stations.",
+    ],
+    solution: [
+      "Deployed ESP32-based sensor nodes at each monitoring station with calibrated pH, turbidity, and DO sensors.",
+      "Implemented cellular gateway architecture for remote locations without WiFi infrastructure.",
+      "Built MQTT-based data pipeline with threshold monitoring and automated SMS/email alerts for out-of-range readings.",
+      "Created operator dashboard with real-time readings, historical trends, station health monitoring, and exportable compliance reports.",
+    ],
+    architecture: "ESP32 nodes → cellular gateway → MQTT broker → time-series store → operator dashboard with thresholds and SMS alerts",
+    architectureDetails: [
+      "ESP32 firmware reads sensors every 5 minutes, buffers readings locally during connectivity outages, and publishes to MQTT broker on reconnect.",
+      "Mosquitto MQTT broker cluster handles 50+ concurrent device connections with TLS encryption and certificate-based authentication.",
+      "Spring Boot stream processor validates readings, applies threshold rules, and writes to InfluxDB time-series database.",
+      "Angular dashboard provides real-time visualization, alert management, and PDF report generation for regulatory compliance.",
+    ],
+    technologies: ["ESP32", "MQTT", "InfluxDB", "Spring Boot", "Angular", "Docker", "Grafana"],
+    timeline: [
+      { phase: "Discovery & sensor selection", duration: "2 weeks", description: "Site surveys, sensor calibration testing, and connectivity assessment." },
+      { phase: "Firmware & prototype", duration: "4 weeks", description: "ESP32 firmware development and single-station pilot deployment." },
+      { phase: "Cloud platform", duration: "6 weeks", description: "MQTT infrastructure, data pipeline, and dashboard development." },
+      { phase: "Fleet deployment", duration: "4 weeks", description: "Rollout to 30+ monitoring stations with OTA update capability." },
+    ],
+    results: [
+      { metric: "Manual readings", value: "Weekly → Monthly", description: "Field technician visits reduced by 75% through automated continuous monitoring." },
+      { metric: "Alert response time", value: "< 2 minutes", description: "Out-of-range events detected and notified in under 2 minutes vs days previously." },
+      { metric: "Data accuracy", value: "99.2%", description: "Automated sensor readings eliminated manual transcription errors." },
+      { metric: "Stations deployed", value: "30+", description: "Monitoring network covering critical watershed areas." },
+    ],
+    businessImpact: [
+      "Operational costs reduced by eliminating weekly field visits to remote monitoring stations.",
+      "Environmental compliance improved through continuous data collection and automated reporting.",
+      "Early detection of contamination events enabled faster response and reduced ecological impact.",
+    ],
+    industrySlug: "agriculture",
+    serviceSlugs: ["iot-development", "cloud-devops"],
+  },
+  {
+    slug: "smart-irrigation-automation",
+    tag: "AgriTech · Automation",
+    title: "Smart Irrigation Automation",
+    metaTitle: "Case Study: Smart Irrigation Automation | TheXbyte",
+    metaDescription: "Smart irrigation system reducing water consumption by 38%. IoT sensors, automated valves, and mobile app for farm cooperative.",
+    overview: [
+      "A farm cooperative managing irrigation across multiple zones needed to reduce water waste while maintaining crop yields across varying soil conditions.",
+      "TheXbyte delivered an automated irrigation system with soil moisture sensors, zone-based valve control, and a mobile app for farmer overrides.",
+    ],
+    clientChallenge: [
+      "The cooperative was over-irrigating crops based on fixed schedules regardless of actual soil moisture, weather conditions, or crop growth stage.",
+      "Water waste stressed pumping infrastructure and increased energy costs across three cooperative zones covering 200+ hectares.",
+      "Farmers had no visibility into soil conditions across distant fields and no way to adjust irrigation remotely.",
+    ],
+    solution: [
+      "Installed soil moisture sensors and flow meters across irrigation zones with STM32-based field controllers.",
+      "Built LoRa wireless network connecting remote sensors to central gateway without requiring cellular coverage in rural areas.",
+      "Developed automated control logic that opens/closes valves per zone based on soil moisture thresholds and weather forecasts.",
+      "Created Flutter mobile app for farmers to monitor conditions, override automation, and receive alerts.",
+    ],
+    architecture: "Soil moisture sensors and flow meters feed a control loop that opens valves per zone, with a mobile app for overrides",
+    architectureDetails: [
+      "STM32 controllers read soil moisture sensors and control solenoid valves with fail-safe defaults.",
+      "LoRa gateway aggregates data from 15+ sensor nodes across the cooperative's fields.",
+      "NestJS backend processes sensor data, applies irrigation logic, and manages user permissions.",
+      "Flutter app provides real-time zone status, manual override controls, and irrigation history.",
+    ],
+    technologies: ["STM32", "LoRa", "NestJS", "Flutter", "PostgreSQL", "Docker"],
+    timeline: [
+      { phase: "Pilot zone setup", duration: "3 weeks", description: "Single zone sensor deployment and control logic validation." },
+      { phase: "Network expansion", duration: "5 weeks", description: "LoRa network deployment across three cooperative zones." },
+      { phase: "Platform development", duration: "6 weeks", description: "Backend automation logic and Flutter mobile app." },
+      { phase: "Full deployment", duration: "3 weeks", description: "Production rollout with farmer training and support." },
+    ],
+    results: [
+      { metric: "Water consumption", value: "-38%", description: "Water usage reduced across three pilot zones in the first growing season." },
+      { metric: "Energy costs", value: "-25%", description: "Reduced pump runtime directly lowered electricity costs." },
+      { metric: "Zones automated", value: "15+", description: "Independent irrigation zones with per-zone moisture thresholds." },
+      { metric: "Farmer adoption", value: "92%", description: "Cooperative members actively using the mobile monitoring app." },
+    ],
+    businessImpact: [
+      "Significant water savings in a region facing increasing water scarcity and regulatory pressure.",
+      "Improved crop yields through optimal irrigation timing based on actual soil conditions.",
+      "Reduced pump maintenance costs from decreased runtime and smoother operation cycles.",
+    ],
+    industrySlug: "agriculture",
+    serviceSlugs: ["iot-development", "flutter-development"],
+  },
+  {
+    slug: "laboratory-operational-platform",
+    tag: "Lab Operations · SaaS",
+    title: "Laboratory Operational Platform",
+    metaTitle: "Case Study: Laboratory Operational Platform | TheXbyte",
+    metaDescription: "Clinical lab platform reducing sample turnaround by 40%. Sample tracking, barcode scanning, audit trails. Spring Boot & Angular.",
+    overview: [
+      "A clinical laboratory needed to replace paper-based sample tracking with a digital platform supporting accreditation requirements and mobile workflows.",
+      "TheXbyte built a comprehensive lab operations platform with sample lifecycle management, barcode scanning, and audit-ready reporting.",
+    ],
+    clientChallenge: [
+      "Samples tracked across paper logs and three disconnected spreadsheets with no centralized visibility or audit trail.",
+      "Sample turnaround time suffered from manual handoffs between reception, processing, and reporting departments.",
+      "Accreditation audits required weeks of manual document preparation to demonstrate process compliance.",
+    ],
+    solution: [
+      "Designed sample lifecycle service tracking every sample from reception through processing to final report delivery.",
+      "Implemented role-based access control with department-specific workflows and approval chains.",
+      "Built mobile barcode scanning app for sample intake and bench-level tracking.",
+      "Created signed PDF report generation with full audit log for accreditation compliance.",
+    ],
+    architecture: "Sample lifecycle service, role-based access, barcode scanning on mobile, signed PDF reports, full audit log",
+    architectureDetails: [
+      "Spring Boot microservices handle sample lifecycle, user management, reporting, and notification services.",
+      "Angular web application provides lab manager dashboards, workflow configuration, and analytics.",
+      "Flutter mobile app enables barcode scanning at reception and processing benches.",
+      "PostgreSQL database with immutable audit log table capturing every state change with user and timestamp.",
+    ],
+    technologies: ["Spring Boot", "Angular", "Flutter", "PostgreSQL", "Docker", "Redis"],
+    timeline: [
+      { phase: "Workflow analysis", duration: "3 weeks", description: "Lab process mapping, role definition, and compliance requirement gathering." },
+      { phase: "Core platform", duration: "8 weeks", description: "Sample lifecycle, RBAC, and web dashboard development." },
+      { phase: "Mobile app", duration: "4 weeks", description: "Barcode scanning app and bench-level workflow integration." },
+      { phase: "Deployment & training", duration: "3 weeks", description: "Production deployment, staff training, and accreditation documentation." },
+    ],
+    results: [
+      { metric: "Turnaround time", value: "-40%", description: "Sample processing time reduced through eliminated manual handoffs." },
+      { metric: "Audit preparation", value: "Days → Hours", description: "Accreditation audit documentation generated automatically." },
+      { metric: "Error rate", value: "-85%", description: "Sample misidentification errors eliminated through barcode workflows." },
+      { metric: "Daily samples", value: "500+", description: "Platform handling daily sample volume with room to scale." },
+    ],
+    businessImpact: [
+      "Accreditation maintained with dramatically simplified audit preparation and compliance documentation.",
+      "Lab capacity increased without additional staff through workflow automation and reduced errors.",
+      "Management gained real-time visibility into lab operations, bottlenecks, and performance metrics.",
+    ],
+    industrySlug: "healthcare",
+    serviceSlugs: ["custom-software-development", "java-spring-development"],
+  },
+  {
+    slug: "industrial-monitoring-dashboard",
+    tag: "Industrial · Real-time",
+    title: "Real-time Industrial Monitoring Dashboard",
+    metaTitle: "Case Study: Industrial Monitoring Dashboard | TheXbyte",
+    metaDescription: "Real-time production line monitoring with OPC-UA integration. Downtime root-cause identification cut from hours to minutes.",
+    overview: [
+      "A manufacturing facility needed live visibility into production line performance, machine state, and downtime causes — replacing end-of-shift paper reports.",
+      "TheXbyte delivered a real-time monitoring dashboard integrated with PLCs via OPC-UA, enabling instant operational decision-making.",
+    ],
+    clientChallenge: [
+      "Production line had no live view of machine state, OEE, or downtime causes — operators relied on end-of-shift reports.",
+      "Downtime root-cause identification took hours of manual investigation across multiple data sources.",
+      "Production managers couldn't intervene in real-time when lines underperformed or quality issues emerged.",
+    ],
+    solution: [
+      "Built OPC-UA bridge connecting production line PLCs to cloud stream processor.",
+      "Implemented in-memory stream processing for real-time OEE calculation and anomaly detection.",
+      "Created websocket-powered dashboard with per-line drill-downs, downtime categorization, and shift comparisons.",
+      "Deployed alert system notifying supervisors of unplanned stops and quality threshold breaches.",
+    ],
+    architecture: "PLC bridge over OPC-UA, in-memory stream processor, websocket dashboard with per-line drill-downs",
+    architectureDetails: [
+      "OPC-UA client connects to Siemens PLCs on the production line, polling machine state every second.",
+      "NestJS stream processor calculates OEE metrics in real-time and categorizes downtime events.",
+      "Redis pub/sub delivers live updates to React dashboard via WebSocket connections.",
+      "Historical data stored in TimescaleDB for shift reports, trend analysis, and management reviews.",
+    ],
+    technologies: ["OPC-UA", "NestJS", "Redis", "React", "TimescaleDB", "Docker", "WebSockets"],
+    timeline: [
+      { phase: "PLC integration", duration: "3 weeks", description: "OPC-UA connectivity testing and data mapping from production PLCs." },
+      { phase: "Stream processing", duration: "4 weeks", description: "Real-time OEE calculation engine and downtime categorization logic." },
+      { phase: "Dashboard", duration: "5 weeks", description: "React dashboard with live updates, drill-downs, and shift reporting." },
+      { phase: "Production rollout", duration: "2 weeks", description: "Deployment, operator training, and alert configuration." },
+    ],
+    results: [
+      { metric: "Root-cause identification", value: "Hours → Minutes", description: "Downtime causes identified instantly instead of post-shift investigation." },
+      { metric: "OEE visibility", value: "Real-time", description: "Live OEE metrics accessible from any device on the factory floor." },
+      { metric: "Unplanned downtime", value: "-15%", description: "Faster response to stoppages reduced total unplanned downtime." },
+      { metric: "Production lines", value: "4", description: "All production lines integrated with unified monitoring dashboard." },
+    ],
+    businessImpact: [
+      "Production efficiency improved through real-time intervention instead of post-hoc analysis.",
+      "Management gained data-driven insights for maintenance scheduling and capacity planning.",
+      "Quality issues detected earlier in the production process, reducing scrap and rework costs.",
+    ],
+    industrySlug: "manufacturing",
+    serviceSlugs: ["iot-development", "web-development"],
+  },
+  {
+    slug: "reservation-payment-system",
+    tag: "Operational · SaaS",
+    title: "Reservation and Payment System",
+    metaTitle: "Case Study: Reservation & Payment System | TheXbyte",
+    metaDescription: "Multi-location booking platform with Stripe payments. No-show rate halved, 3x weekly bookings in two months.",
+    overview: [
+      "A multi-location service business was losing revenue to manual phone scheduling, missed deposits, and high no-show rates.",
+      "TheXbyte built a reservation platform with calendar management, online payments, and automated customer communications.",
+    ],
+    clientChallenge: [
+      "Manual phone scheduling couldn't handle growing demand across multiple locations with different availability.",
+      "Missed deposit collection led to high no-show rates and lost revenue from unfilled appointment slots.",
+      "Staff spent hours on phone scheduling instead of delivering services to paying customers.",
+    ],
+    solution: [
+      "Built calendar service with conflict resolution across multiple locations and staff members.",
+      "Integrated Stripe payment processing with deposit collection at booking time.",
+      "Implemented automated email and SMS reminders reducing no-show rates.",
+      "Created Flutter mobile app for staff schedule management and customer check-in.",
+    ],
+    architecture: "Calendar service with conflict resolution, payment provider integration, transactional email and SMS",
+    architectureDetails: [
+      "NestJS backend handles booking logic, availability calculation, and payment processing.",
+      "PostgreSQL stores appointments, customer data, and payment records with full audit trail.",
+      "Stripe integration for deposit collection, refunds, and payment method management.",
+      "Flutter app for staff to view schedules, check in customers, and manage walk-ins.",
+    ],
+    technologies: ["NestJS", "PostgreSQL", "Stripe", "Flutter", "React", "Docker", "SendGrid"],
+    timeline: [
+      { phase: "Booking engine", duration: "4 weeks", description: "Calendar logic, availability rules, and conflict resolution." },
+      { phase: "Payment integration", duration: "3 weeks", description: "Stripe deposits, refunds, and payment confirmation flows." },
+      { phase: "Customer-facing app", duration: "4 weeks", description: "Web booking portal and Flutter staff app." },
+      { phase: "Launch & optimization", duration: "3 weeks", description: "Multi-location rollout, reminder automation, and analytics." },
+    ],
+    results: [
+      { metric: "No-show rate", value: "-50%", description: "Deposit collection and automated reminders halved no-show rates." },
+      { metric: "Weekly bookings", value: "3× increase", description: "Online booking availability tripled weekly appointment volume in two months." },
+      { metric: "Phone scheduling", value: "-80%", description: "Staff phone time reduced dramatically through self-service booking." },
+      { metric: "Locations", value: "5", description: "Unified platform managing reservations across all business locations." },
+    ],
+    businessImpact: [
+      "Revenue increased through higher booking volume and reduced no-show losses.",
+      "Staff productivity improved by eliminating manual scheduling phone calls.",
+      "Customer satisfaction increased through convenient online booking and automated reminders.",
+    ],
+    industrySlug: "retail",
+    serviceSlugs: ["web-development", "mvp-development"],
+  },
+  {
+    slug: "embedded-telemetry-systems",
+    tag: "Embedded · Telemetry",
+    title: "Embedded Telemetry Systems",
+    metaTitle: "Case Study: Embedded Telemetry for Equipment Fleet | TheXbyte",
+    metaDescription: "Fleet telemetry system with CAN bus integration. Proactive service dispatch improved first-time-fix rates.",
+    overview: [
+      "A mobile equipment fleet operator had no remote diagnostics capability — failures were diagnosed on-site after they happened, causing costly downtime.",
+      "TheXbyte built custom telemetry firmware and a fleet dashboard enabling proactive maintenance and remote diagnostics.",
+    ],
+    clientChallenge: [
+      "Mobile equipment fleet had no remote diagnostics — failures diagnosed on-site after breakdowns occurred.",
+      "Service teams dispatched reactively without diagnostic data, leading to repeat visits and low first-time-fix rates.",
+      "No visibility into equipment utilization, operating hours, or maintenance schedules across the fleet.",
+    ],
+    solution: [
+      "Developed custom telemetry firmware reading CAN bus data from equipment controllers.",
+      "Built cellular uplink module for real-time data transmission from remote field locations.",
+      "Created fleet dashboard with predictive maintenance thresholds and diagnostic alerts.",
+      "Implemented automated service dispatch recommendations based on telemetry patterns.",
+    ],
+    architecture: "Custom telemetry firmware over CAN bus, cellular uplink, fleet dashboard with predictive thresholds",
+    architectureDetails: [
+      "ESP32-based telemetry module reads CAN bus messages from equipment ECUs.",
+      "Cellular modem provides data uplink from locations without WiFi infrastructure.",
+      "MQTT pipeline delivers telemetry to TimescaleDB with stream processing for threshold alerts.",
+      "React fleet dashboard shows equipment health, location, utilization, and maintenance schedules.",
+    ],
+    technologies: ["ESP32", "CAN", "MQTT", "TimescaleDB", "React", "Spring Boot", "Docker"],
+    timeline: [
+      { phase: "Firmware development", duration: "5 weeks", description: "CAN bus integration, data parsing, and cellular uplink prototype." },
+      { phase: "Cloud platform", duration: "5 weeks", description: "Data pipeline, threshold engine, and fleet dashboard." },
+      { phase: "Fleet deployment", duration: "4 weeks", description: "Installation across 40+ equipment units with calibration." },
+      { phase: "Predictive maintenance", duration: "3 weeks", description: "ML threshold tuning and automated dispatch integration." },
+    ],
+    results: [
+      { metric: "First-time-fix rate", value: "+35%", description: "Remote diagnostics enabled technicians to arrive with correct parts and procedures." },
+      { metric: "Unplanned downtime", value: "-20%", description: "Predictive alerts enabled maintenance before catastrophic failures." },
+      { metric: "Fleet coverage", value: "40+ units", description: "Telemetry deployed across entire mobile equipment fleet." },
+      { metric: "Diagnostic time", value: "-60%", description: "Remote diagnostics eliminated unnecessary on-site investigation visits." },
+    ],
+    businessImpact: [
+      "Service costs reduced through proactive maintenance and improved first-time-fix rates.",
+      "Equipment utilization data enabled better fleet sizing and rental pricing decisions.",
+      "Customer satisfaction improved through reduced equipment downtime and faster service response.",
+    ],
+    industrySlug: "logistics",
+    serviceSlugs: ["iot-development", "custom-software-development"],
+  },
+];
+
+export const caseStudiesBySlug = Object.fromEntries(
+  allCaseStudies.map((c) => [c.slug, c])
+) as Record<string, CaseStudyContent>;
+
+export function getCaseStudy(slug: string): CaseStudyContent | undefined {
+  return caseStudiesBySlug[slug];
+}
